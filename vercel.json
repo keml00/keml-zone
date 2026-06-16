@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.keml-zone.ru" }],
+      "destination": "https://keml-zone.ru/:path*",
+      "permanent": true
+    }
+  ]
+}
