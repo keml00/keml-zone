@@ -7,6 +7,9 @@ next-env.d.ts
 out/
 dist/
 
+# Build archive
+*.tar.gz
+
 # Data (chat messages, config with tokens)
 data/
 
