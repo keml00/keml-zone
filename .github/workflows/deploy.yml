@@ -1,0 +1,51 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - name: Copy standalone to server
+        uses: burnett01/rsync-deployments@7.0.2
+        with:
+          switches: -avz --delete --include=.next/static/ --include=.next/standalone/*** --include=public/*** --include=data/*** --include=package.json --include=server.js --exclude=*
+          path: .next/standalone/
+          remote_path: /var/www/keml-zone/
+          remote_host: 31.59.92.33
+          remote_user: root
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Copy .env.local
+        uses: burnett01/rsync-deployments@7.0.2
+        with:
+          switches: -avz
+          path: .env.local
+          remote_path: /var/www/keml-zone/.env.local
+          remote_host: 31.59.92.33
+          remote_user: root
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Restart PM2
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: 31.59.92.33
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /var/www/keml-zone
+            pm2 restart keml-studio || pm2 start server.js --name keml-studio --env PORT=3000
+            pm2 save
+            echo "Deploy complete"

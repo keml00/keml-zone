@@ -1,32 +1,15 @@
 node_modules/
 .next/
+.env
 .env.local
-.env*.local
+.env.*.local
 *.tsbuildinfo
 next-env.d.ts
 out/
 dist/
-
-# Build archive
 *.tar.gz
-
-# Data (chat messages, config with tokens)
 data/
-
-# Environment files
-.env
-.env.local
-.env*.local
-
-# Chat system (separate project)
 chat-system/
-
-# Build outputs
-.next/
-out/
-dist/
-
-# IDE
 .vscode/
 .idea/
 *.swp
