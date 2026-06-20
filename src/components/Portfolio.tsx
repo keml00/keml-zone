@@ -43,6 +43,14 @@ const projects = [
 ];
 
 export default function Portfolio() {
+  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    e.currentTarget.style.setProperty("--mouse-x", `${x}px`);
+    e.currentTarget.style.setProperty("--mouse-y", `${y}px`);
+  };
+
   return (
     <section id="portfolio" className="section-padding relative">
       <div className="section-container">
@@ -55,14 +63,13 @@ export default function Portfolio() {
         >
           <span className="section-label">
             <FolderKanban size={14} />
-            Портфолио
+            Кейсы студии
           </span>
           <h2 className="section-title">
-            Наши <span className="gradient-text">проекты</span>
+            Наши <span className="gradient-text">выполненные проекты</span>
           </h2>
           <p className="section-subtitle mx-auto">
-            Кейсы, которыми мы гордимся. Каждый проект — это результат
-            внимательного подхода к задачам бизнеса.
+            Кейсы, которыми мы гордимся. Разрабатываем надежные решения, приносящие пользу.
           </p>
         </motion.div>
 
@@ -79,30 +86,31 @@ export default function Portfolio() {
                 duration: 0.6,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="group glass-card rounded-[1.25rem] p-6 card-hover block relative overflow-hidden"
+              className="group glass-glow-card rounded-[1.25rem] p-6 block relative overflow-hidden"
+              onMouseMove={handleMouseMove}
             >
               <div className="absolute -top-8 -right-8 w-24 h-24 bg-gradient-to-br from-[#a855f7]/10 to-[#06b6d4]/5 rounded-full blur-2xl" />
 
               <div className="flex items-center justify-between mb-4 relative">
-                <div className="icon-wrap">
-                  <ExternalLink size={18} className="text-[#a855f7]" />
+                <div className="icon-wrap shadow-inner">
+                  <ExternalLink size={18} className="text-[#a855f7] group-hover:scale-110 transition-transform duration-300" />
                 </div>
                 <ArrowUpRight
                   size={18}
-                  className="text-[#64748b] group-hover:text-[#a855f7] transition-colors -translate-y-1 translate-x-1 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-300"
+                  className="text-[#64748b] group-hover:text-[#a855f7] -translate-y-1 translate-x-1 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-300"
                 />
               </div>
-              <h3 className="text-lg font-semibold mb-2 group-hover:gradient-text transition-all duration-300 relative">
+              <h3 className="text-lg font-semibold mb-2 group-hover:text-[#a855f7] transition-colors duration-300 relative">
                 {p.title}
               </h3>
-              <p className="text-sm text-[#94a3b8] mb-4 leading-relaxed relative">
+              <p className="text-sm text-[#94a3b8] mb-5 leading-relaxed relative">
                 {p.desc}
               </p>
               <div className="flex flex-wrap gap-2 relative">
                 {p.tags.map((t, j) => (
                   <span
                     key={j}
-                    className="text-xs px-2.5 py-1 rounded-full bg-[#a855f7]/8 text-[#a855f7] border border-[#a855f7]/10"
+                    className="text-xs px-2.5 py-1 rounded-full bg-[#a855f7]/8 text-[#a855f7] border border-[#a855f7]/10 font-medium"
                   >
                     {t}
                   </span>

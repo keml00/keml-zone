@@ -16,57 +16,57 @@ const services = [
   {
     icon: Layout,
     title: "Лендинг под ключ",
-    price: "от 35 000 ₽",
-    range: "35 000 – 90 000 ₽",
+    price: "от 17 500 ₽",
+    range: "17 500 – 45 000 ₽",
     desc: "Одностраничный сайт для презентации продукта или услуги с высоким уровнем конверсии.",
   },
   {
     icon: Globe,
     title: "Корпоративный сайт",
-    price: "от 70 000 ₽",
-    range: "70 000 – 180 000 ₽",
+    price: "от 35 000 ₽",
+    range: "35 000 – 90 000 ₽",
     desc: "Многостраничный сайт для компании с каталогом, новостями и контактами.",
   },
   {
     icon: ShoppingCart,
     title: "Интернет-магазин",
-    price: "от 120 000 ₽",
-    range: "от 120 000 ₽",
+    price: "от 60 000 ₽",
+    range: "от 60 000 ₽",
     desc: "Полноценный интернет-магазин с корзиной, оплатой и личным кабинетом.",
   },
   {
     icon: Bot,
     title: "Telegram-бот",
-    price: "от 20 000 ₽",
-    range: "от 20 000 ₽",
+    price: "от 10 000 ₽",
+    range: "от 10 000 ₽",
     desc: "Чат-бот для Telegram: автоворонки, заказы, уведомления и интеграции.",
   },
   {
     icon: Cpu,
     title: "AI чат-бот для бизнеса",
-    price: "от 35 000 ₽",
-    range: "от 35 000 ₽",
+    price: "от 17 500 ₽",
+    range: "от 17 500 ₽",
     desc: "Умный AI-ассистент на основе GPT для консультаций и обработки заявок 24/7.",
   },
   {
     icon: Database,
     title: "CRM и автоматизация",
-    price: "от 50 000 ₽",
-    range: "от 50 000 ₽",
+    price: "от 25 000 ₽",
+    range: "от 25 000 ₽",
     desc: "Внедрение CRM, автоматизация воронок продаж и бизнес-процессов.",
   },
   {
     icon: BarChart3,
     title: "SEO продвижение",
-    price: "от 25 000 ₽/мес",
-    range: "от 25 000 ₽/мес",
+    price: "от 12 500 ₽/мес",
+    range: "от 12 500 ₽/мес",
     desc: "Вывод сайта в топ Яндекса и Google. Оптимизация и рост трафика.",
   },
   {
     icon: HeadphonesIcon,
     title: "Техническая поддержка",
-    price: "от 10 000 ₽/мес",
-    range: "от 10 000 ₽/мес",
+    price: "от 5 000 ₽/мес",
+    range: "от 5 000 ₽/мес",
     desc: "Обновления, хостинг, безопасность и техническое сопровождение сайта.",
   },
 ];
@@ -88,6 +88,14 @@ const item = {
 };
 
 export default function Services() {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    e.currentTarget.style.setProperty("--mouse-x", `${x}px`);
+    e.currentTarget.style.setProperty("--mouse-y", `${y}px`);
+  };
+
   return (
     <section id="services" className="section-padding relative">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#a855f7]/25 to-transparent" />
@@ -101,14 +109,13 @@ export default function Services() {
         >
           <span className="section-label">
             <SparklesIcon />
-            Услуги
+            Наши Услуги
           </span>
           <h2 className="section-title">
-            Что мы <span className="gradient-text">предлагаем</span>
+            Создание сайтов в <span className="gradient-text">Казани & боты под ключ</span>
           </h2>
           <p className="section-subtitle mx-auto">
-            Актуальные цены на рынке Казани и Татарстана. Прозрачно, без
-            скрытых платежей.
+            Оказываем весь спектр цифровых услуг с прозрачными ценами и фиксированными сроками.
           </p>
         </motion.div>
 
@@ -123,16 +130,18 @@ export default function Services() {
             <motion.div
               key={i}
               variants={item}
-              className="glass-card rounded-[1.25rem] p-6 card-hover group cursor-default"
+              className="glass-glow-card rounded-[1.25rem] p-6 group cursor-default"
+              onMouseMove={handleMouseMove}
             >
-              <div className="icon-wrap mb-5">
-                <s.icon size={22} className="text-[#a855f7]" />
+              <div className="icon-wrap mb-5 shadow-inner">
+                <s.icon size={22} className="text-[#a855f7] group-hover:scale-110 transition-transform duration-300" />
               </div>
-              <h3 className="text-lg font-semibold mb-2">{s.title}</h3>
+              <h3 className="text-lg font-semibold mb-2 group-hover:text-[#a855f7] transition-colors duration-300">{s.title}</h3>
               <p className="text-2xl font-bold gradient-text mb-3">{s.price}</p>
-              <p className="text-sm text-[#94a3b8] leading-relaxed">{s.desc}</p>
-              <div className="mt-4 pt-4 border-t border-white/5">
+              <p className="text-sm text-[#94a3b8] leading-relaxed mb-4">{s.desc}</p>
+              <div className="mt-4 pt-4 border-t border-white/5 flex items-center justify-between">
                 <span className="text-xs text-[#64748b]">{s.range}</span>
+                <span className="text-xs text-[#a855f7] font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">Заказать &rarr;</span>
               </div>
             </motion.div>
           ))}
